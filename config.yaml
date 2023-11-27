@@ -1,0 +1,340 @@
+
+# fundamental operators supported by banckend library
+FundamentalFuncs:
+  - func: Add
+    cpu_impl: "v[0] + v[1]"
+    output_info: GetBinaryOpsOutInfo
+  - func: Arange
+    output_info: GetArangeOutInfo
+  - func: Divide
+    cpu_impl: "v[0] / v[1]"
+    output_info: GetBinaryOpsOutInfo
+  - func: Equal
+    output_info: CloneOutInfoFromInput0
+  - func: Exp
+    cpu_impl: "std::exp(v[0])"
+    output_info: CloneOutInfoFromInput0
+  - func: Floor
+    cpu_impl: "std::floor(v[0])"
+    output_info: CloneOutInfoFromInput0
+  - func: FloorDivTrunc
+    output_info: CloneOutInfoFromInput0    
+  - func: Fill
+    output_info: CloneOutInfoFromInput0
+  - func: Log
+    cpu_impl: "std::log(v[0])"
+    output_info: CloneOutInfoFromInput0
+  - func: LogicalAnd
+    output_info: CloneOutInfoFromInput0
+  - func: LogicalOr
+    output_info: CloneOutInfoFromInput0
+  - func: MatMul
+    output_info: GetMatmulOutInfo
+  - func: Maximum
+    output_info: CloneOutInfoFromInput0
+  - func: Minimum
+    output_info: CloneOutInfoFromInput0
+  - func: Multiply
+    cpu_impl: "v[0] * v[1]"
+    output_info: GetBinaryOpsOutInfo
+  - func: NanInf
+    output_info: LogicalOpsOutInfo
+  - func: Power
+    cpu_impl: "std::pow(v[0], v[1])"
+    output_info: CloneOutInfoFromInput0
+  - func: ReduceMax
+    output_info: GetReduceOutInfo
+  - func: ReduceMin
+    output_info: GetReduceOutInfo
+  - func: ReduceMean
+    output_info: GetReduceOutInfo
+  - func: ReduceAdd
+    output_info: GetReduceOutInfo    
+  - func: Softmax
+    output_info: CloneOutInfoFromInput0
+  - func: Sqrt
+    cpu_impl: "std::sqrt(v[0])"
+    output_info: CloneOutInfoFromInput0
+  - func: Subtract
+    cpu_impl: "v[0] - v[1]"
+    output_info: GetBinaryOpsOutInfo
+  - func: ReduceSum
+    output_info: GetReduceOutInfo
+  - func: Transpose
+    output_info: CloneOutInfoFromInput0
+
+# Some helper functions to execute non-calculation tasks
+HelperFuncs: 
+  - func: Double
+  - func: ExpandWrapper
+  - func: Float
+  - func: Half
+  - func: GetMemChannelLastCopy
+  - func: GetReduceAxes
+  - func: GetNumel
+  - func: GetNdimOfTensor
+  - func: GetShapeOfTensor
+  - func: GetStridesOfTensor
+  - func: Int
+  - func: IsHalf
+  - func: IsShapeEqual
+  - func: Long
+  - func: RetrievingValueByIndex
+  - func: ScalarToTensor
+
+CompoundFuncs:
+#   - func: res = Test(a, b)
+#     expressions: >-
+#       res = Float(Int(a) == Int(b));
+
+  - func: accuracy, correct, total = Accuracy(out, indices, label)
+    expressions: >-
+      equal_fp32 = Float(Int(indices) == Int(label));
+      correct_sum = ReduceSum(ReduceMax(equal_fp32, Vector(1)), Vector(0));
+      correct = Int(correct_sum);
+      t0 = GetNumel(indices);
+      total = Fill(total, t0);
+      t1 = Fill(total, Float(t0));
+      accuracy = Divide(correct_sum, t1);
+
+  - func: dx, dy = Multiply_Grad(x, y, dout, axis)
+    expressions: >-
+      t0 = dout * y;
+      reduce_axes1 = GetReduceAxes(axis, t0, dx, x, y);
+      reduce_add1 = ReduceAdd(t0, reduce_axes1);
+      t1 = dout * x;
+      reduce_axes2 = GetReduceAxes(axis, t1, dy, x, y);
+      reduce_add2 = ReduceAdd(t1, reduce_axes2);
+      t2 = IsShapeEqual(dx, dout);
+      dx = if(t2, t0, reduce_add1);
+      t3 = IsShapeEqual(dy, dout);
+      dy = if(t3, t1, reduce_add2);
+
+  # addmm: out=βinput+α(mat1@mat2)
+  - func: out = Addmm(input, mat1, mat2, beta, alpha)
+    expressions: >-
+      out = beta * input + alpha * (mat1 @ mat2);
+
+  - func: out = Acosh(x)
+    expressions: >-
+      out = Log(x + Sqrt(x ** ScalarToTensor(2) - 1));
+
+  - func: out = Asinh(x)
+    expressions: >-
+      out = Log(x + Sqrt(x ** ScalarToTensor(2) + 1));
+
+  - func: out = Atanh(x)
+    expressions: >-
+      out = Log((1+x)/(1-x))/2;
+
+  # out = (x - input_mean) / sqrt(input_var + epsilon) * scale + bias
+  - func: out = BatchNorm_Eval(x, scale, bias, input_mean, input_var, epsilon)
+    expressions: >-
+      t0 = GetMemChannelLastCopy(x);
+      out = (t0 - input_mean) / Sqrt(input_var + epsilon) * scale + bias;
+
+  # running_mean = input_mean * momentum + current_mean * (1 - momentum)
+  # running_var = input_var * momentum + current_var * (1 - momentum)
+  # Y = (X - current_mean) / sqrt(current_var + epsilon) * scale + B
+  # current_mean = ReduceMean(X, axis=all_except_channel_index)
+  # current_var =  ReduceVar(X, axis=all_except_channel_index)
+  - func: out, running_mean, running_var = BatchNorm_Train(x, scale, bias, input_mean, input_var, epsilon, momentum)
+    expressions: >-
+      t0 = GetMemChannelLastCopy(x);
+      current_mean = ReduceMean(t0, Vector(0, 1, 2));
+      current_var = Var(t0, Vector(0, 1, 2));
+      running_mean = input_mean * momentum + current_mean * (1 - momentum);
+      running_var = input_var * momentum + current_var * (1 - momentum);
+      out = (t0 - current_mean) / Sqrt(current_var + epsilon) * scale + bias;
+
+
+# # Compound operators that can be split into fundamental operators
+# CompoundFuncs:
+#   # accuracy:
+#   - func: accuracy, correct, total = Accuracy(out, indices, label)
+#     expressions:
+#       - equal_fp32: Float(Equal(Int(indices), Int(label)))     # equal fp32
+#       - correct_sum: ReduceSum(ReduceMax(equal_fp32, {1}), {0})
+#       - correct: Int(correct_sum)              # correct int
+#       - t0: GetNumel(indices)
+#       - total: Fill(total, t0)                 # total
+#       - t1: Fill(total, Float(t0))             # total fp32
+#       - accuracy: Divide(correct_sum, t1)      # accuracy
+
+#   # addmm: out=βinput+α(mat1@mat2)
+#   - func: out = Addmm(input, mat1, mat2, beta, alpha)
+#     expressions:
+#       - out: beta * input + alpha * (mat1 @ mat2)
+
+#   - func: out = Acosh(x)
+#     expressions:
+#       - out: Log(x + Sqrt(x ** ScalarToTensor(2) - 1)) 
+
+#   - func: out = Asinh(x)
+#     expressions:
+#       - out: Log(x + Sqrt(x ** ScalarToTensor(2) + 1)) 
+
+#   - func: out = Atanh(x)
+#     expressions:
+#       - out: Log((1+x)/(1-x))/2
+
+#   # out = (x - input_mean) / sqrt(input_var + epsilon) * scale + bias
+#   - func: out = BatchNorm_Eval(x, scale, bias, input_mean, input_var, epsilon)
+#     expressions:
+#       - t0: GetMemChannelLastCopy(x)
+#       - out: (t0 - input_mean) / Sqrt(input_var + epsilon) * scale + bias
+
+#   # running_mean = input_mean * momentum + current_mean * (1 - momentum)
+#   # running_var = input_var * momentum + current_var * (1 - momentum)
+#   # Y = (X - current_mean) / sqrt(current_var + epsilon) * scale + B
+#   # current_mean = ReduceMean(X, axis=all_except_channel_index)
+#   # current_var =  ReduceVar(X, axis=all_except_channel_index)
+#   - func: out, running_mean, running_var = BatchNorm_Train(x, scale, bias, input_mean, input_var, epsilon, momentum)
+#     expressions:
+#       - t0: GetMemChannelLastCopy(x)
+#       - current_mean: ReduceMean(t0, {0, 1, 2})
+#       - current_var: Var(t0, {0, 1, 2})
+#       - running_mean: input_mean * momentum + current_mean * (1 - momentum)
+#       - running_var: input_var * momentum + current_var * (1 - momentum)
+#       - out: (t0 - current_mean) / Sqrt(current_var + epsilon) * scale + bias
+
+#   - func: out = Cosh(x)
+#     expressions:
+#       - out: (Exp(x)+Exp(-x))/2    
+
+#   # divide_grad: dx = dout/y = 1/y * dout, dy = -out * (dout/y) = -out/y * dout
+#   - func: dx, dy = Divide_Grad(x, y, output, dout, axis)
+#     expressions:
+#       - t0: dout / y
+#       - t2: -output / y * dout
+#       - t3: GetReduceAxes(axis, dout, dx, x, y)
+#       - t4: GetReduceAxes(axis, dout, dy, x, y)
+#       - t5: ReduceAdd(t0, t3)
+#       - t6: ReduceAdd(t2, t4)
+#       - t7: IsShapeEqual(dx, dout)
+#       - t8: IsShapeEqual(dy, dout)
+#       - dx: if(t7, t0, t5)
+#       - dy: if(t8, t2, t6)
+
+#   # gelu: out = 0.5x(1 + tanh(sqrt(2/pi)(x+0.044715* x ** 3)))
+#   - func: out = Gelu(x)
+#     expressions:
+#       - out: 0.5 * x * (1 + Tanh(Sqrt(2/pi) * (x + 0.044715 * x ** ScalarToTensor(3))))
+
+#   # indexTransform_cnnl2torch
+#   # - func: out = indexTransform_cnnl2torch(cnnl_index, input_WH, kernel_WH, padding, stride)
+#   #   expressions:
+#   #     - res_div: cnnl_index / kernel_WH[1] - padding[0]
+#   #     - t0: cnnl_index.shape[-1]
+#   #     - t1: cnnl_index.shape[-2]
+#   #     - col: Transpose(ExpandWrapper(Arange(0, 1, t1), {t0, t1}), {0, 1}) * stride[0]
+#   #     - res_mem: cnnl_index % kernel_WH[1] - padding[1]
+#   #     - row: ExpandWrapper(Arange(0, 1, t0), {t1, t0}) * stride[1]
+#   #     - out: res_div + res_mem + row
+
+#   - func: out = indexTransform_cnnl2torch(cnnl_index, input_WH, kernel_WH, padding, stride)
+#     expressions:
+#       - t0: cnnl_index.shape[-1]
+#       - t1: cnnl_index.shape[-2]
+#       - col: Transpose(ExpandWrapper(Arange(0, 1, t1), {t0, t1}), {0, 1}) * stride[0]
+#       - t2: FloorDivTrunc(cnnl_index, kernel_WH[1])
+#       - t3: t2 - padding[0]
+#       - t4: Add(t3, col)
+#       - res_div: t4 * input_WH[1]
+#       # - res_div: ((FloorDivTrunc(cnnl_index, kernel_WH[1]) - padding[0]) + col) * input_WH[1]
+#       - res_mem: cnnl_index % kernel_WH[1] - padding[1]
+#       - row: ExpandWrapper(Arange(0, 1, t0), {t1, t0}) * stride[1]
+#       - out: res_div + (res_mem + row)
+
+#   # linear: out=mat1@mat2+bias
+#   - func: out = Linear(mat1, mat2, bias)
+#     expressions:
+#       - out: mat1 @ mat2 + bias
+
+#   - func: out = LogSoftmax(input, axis)
+#     expressions:
+#       - out: Log(Softmax(input, axis))
+
+#   - func: dx, dy = MatMul_Grad(x, y, dout, transpose_x, transpose_y)
+#     expressions:
+#       - dx: dout @ y
+#       - dy: dout @ x
+
+#   # Multiply_Grad: dx = dout * y; dy = dout * x
+#   - func: dx, dy = Multiply_Grad(x, y, dout, axis)
+#     expressions:
+#       - t0: dout * y
+#       - t1: GetReduceAxes(axis, t0, dx, x, y)
+#       - t2: ReduceAdd(t0, t1)
+#       - t3: dout * x
+#       - t4: GetReduceAxes(axis, t3, dy, x, y)
+#       - t5: ReduceAdd(t3, t4)
+#       - t6: IsShapeEqual(dx, dout)
+#       - t7: IsShapeEqual(dy, dout)
+#       - dx: if(t6, t0, t2)
+#       - dy: if(t7, t3, t5)
+
+#   - func: out = Neg(x)
+#     expressions:
+#       - out: -1 * x
+#     output_info: CloneOutInfoFromInput0      
+
+#   # Power_Grad: dx = dout * y * pow(x, y - 1); dy = dout * log(x) * pow(x, y)
+#   - func: dx, dy = Power_Grad(x, y, dout, axis)
+#     expressions:
+#       - t3: dout * y * x ** ScalarToTensor(y - 1) # dx
+#       - t7: dout * Log(x) * x ** ScalarToTensor(y)  # dy
+#       - t8: IsShapeEqual(dx, dout)
+#       - t9: IsShapeEqual(dy, dout)
+#       - t10: GetReduceAxes(axis, t3, dx, x, y)
+#       - t11: GetReduceAxes(axis, t7, dy, x, y)
+#       - dx: if(t8, t3, t10)
+#       - dy: if(t9, t7, t11)
+
+#   - func: out = Reciprocal(x)
+#     expressions:
+#       - out: 1 / x
+#     output_info: CloneOutInfoFromInput0
+
+#   - func: out = Remainder(a, b)
+#     expressions:
+#       - out: a - Floor(a / b) * b
+#     output_info: CloneOutInfoFromInput0
+
+#   - func: out = Relu(x)
+#     expressions:
+#       - out: Maximum(0, x)
+#     output_info: CloneOutInfoFromInput0
+
+#   - func: out = Sigmoid(x)
+#     expressions:
+#       - out: 1/(1+Exp(-x))
+#     output_info: CloneOutInfoFromInput0
+
+#   - func: out = Sinh(x)
+#     expressions:
+#       - out: (Exp(x) - Exp(-x))/2
+#     output_info: CloneOutInfoFromInput0
+
+#   - func: out = Tanh(x)
+#     expressions:
+#       - out: (Exp(x) - Exp(-x)) / (Exp(x) + Exp(-x))
+#     output_info: CloneOutInfoFromInput0
+
+#   # Var: 
+#   - func: out = Var(x, axes, unbiased)
+#     expressions:
+#       - t3: ReduceSum(x - ReduceMean(x, axes) ** ScalarToTensor(2), axes)
+#       - t4: plugin_GetNumOfElement
+#       - out: t3 / t4
+#     output_info: GetReduceOutInfo
+
+#   - func: out, found_inf = CheckFiniteAndUnscaleOneStep(x, t_scale)
+#     expressions:
+#       - found_inf: LogicalOr(NanInf(x), found_inf)
+#       - t0: Half(Divide(Float(x), t_scale))
+#       - out: if(IsHalf(x), t0, Divide(x, t_scale))
+
+#   - func: out = MyAdd(input1, input2)
+#     expressions:
+#       - out: Add(input1, input2)

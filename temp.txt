@@ -1,0 +1,18 @@
+// %union {
+//   std::string *string;
+//   int token;
+//   std::vector<TNode*> *node_vector;
+//   TNode* node;
+// }
+
+// /* terminal symbols*/
+// %token <string> IDENTIFIER INTEGER DOUBLE PI IF
+// %token <token> CEQ CNE CLT CLE CGT CGE EQUAL
+// %token <token> LPAREN RPAREN COMMA DOT SEP
+// %token <token> PLUS MINUS MUL DIV MATMUL POWER
+// %token <token> NOT PLUS1 MINUS1
+
+// /* nonterminal symbols */
+// %type <node_vector> stmts call_args
+// %type <node> stmt assign expr numeric identifier unary_expr binary_expr call_expr if_expr
+// %type <string> compare_op math_op binary_op ceq cne clt cle cgt cge plus minus mul div matmul power
