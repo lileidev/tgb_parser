@@ -673,7 +673,6 @@ namespace tensorglue { namespace parser {
   TNode* node = new TNode("tgb##output", "CompoundOutputs", OperatorType::COMPOUNDOUTPUTS);
   driver.SetRoot(node);
   for (auto &item : *yystack_[0].value.as < std::vector<TNode*>* > ()) {
-    std::cout << item->node_label_ << std::endl;
     if (std::regex_match(item->node_label_, output_regex)) {
       driver.AddSubTree(driver.GetRoot(), item);
     }
@@ -681,39 +680,39 @@ namespace tensorglue { namespace parser {
   delete yystack_[0].value.as < std::vector<TNode*>* > ();
   driver.ReleaseTempMapNodes();
 }
-#line 685 "parser.cpp"
+#line 684 "parser.cpp"
     break;
 
   case 3: // stmts: stmt
-#line 113 "parser.y"
+#line 112 "parser.y"
              { yylhs.value.as < std::vector<TNode*>* > () = new std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
-#line 691 "parser.cpp"
+#line 690 "parser.cpp"
     break;
 
   case 4: // stmts: stmts stmt
-#line 114 "parser.y"
+#line 113 "parser.y"
                    { yystack_[1].value.as < std::vector<TNode*>* > ()->emplace_back(yystack_[0].value.as < TNode* > ()); yylhs.value.as < std::vector<TNode*>* > () = yystack_[1].value.as < std::vector<TNode*>* > (); }
-#line 697 "parser.cpp"
+#line 696 "parser.cpp"
     break;
 
   case 5: // stmt: assign SEP
-#line 117 "parser.y"
+#line 116 "parser.y"
                   { yylhs.value.as < TNode* > () = yystack_[1].value.as < TNode* > (); driver.StoreMap(yystack_[1].value.as < TNode* > ()); }
-#line 703 "parser.cpp"
+#line 702 "parser.cpp"
     break;
 
   case 6: // assign: identifier EQUAL expr
-#line 120 "parser.y"
+#line 119 "parser.y"
                                {
   yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > ();
   yylhs.value.as < TNode* > ()->node_label_ = yystack_[2].value.as < TNode* > ()->node_label_;
   delete yystack_[2].value.as < TNode* > ();
 }
-#line 713 "parser.cpp"
+#line 712 "parser.cpp"
     break;
 
   case 7: // expr: identifier
-#line 127 "parser.y"
+#line 126 "parser.y"
                   {
   if (driver.IsStoredValue(yystack_[0].value.as < TNode* > ()->node_label_)) {
     yylhs.value.as < TNode* > () = driver.CloneTree(driver.GetStoredValue(yystack_[0].value.as < TNode* > ()->node_label_));
@@ -722,195 +721,195 @@ namespace tensorglue { namespace parser {
     yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > ();
   }
 }
-#line 726 "parser.cpp"
+#line 725 "parser.cpp"
     break;
 
   case 8: // expr: numeric
-#line 135 "parser.y"
+#line 134 "parser.y"
        { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 732 "parser.cpp"
+#line 731 "parser.cpp"
     break;
 
   case 9: // expr: unary_expr
-#line 135 "parser.y"
+#line 134 "parser.y"
                  { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 738 "parser.cpp"
+#line 737 "parser.cpp"
     break;
 
   case 10: // expr: binary_expr
-#line 135 "parser.y"
+#line 134 "parser.y"
                               { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 744 "parser.cpp"
+#line 743 "parser.cpp"
     break;
 
   case 11: // expr: call_expr
-#line 135 "parser.y"
+#line 134 "parser.y"
                                             { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 750 "parser.cpp"
+#line 749 "parser.cpp"
     break;
 
   case 12: // expr: if_expr
-#line 135 "parser.y"
+#line 134 "parser.y"
                                                                 { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 756 "parser.cpp"
+#line 755 "parser.cpp"
     break;
 
   case 13: // expr: LPAREN expr RPAREN
-#line 136 "parser.y"
+#line 135 "parser.y"
                           { yylhs.value.as < TNode* > () = yystack_[1].value.as < TNode* > (); }
-#line 762 "parser.cpp"
+#line 761 "parser.cpp"
     break;
 
   case 14: // numeric: INTEGER
-#line 139 "parser.y"
+#line 138 "parser.y"
                   { yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > (), OperatorType::INT); }
-#line 768 "parser.cpp"
+#line 767 "parser.cpp"
     break;
 
   case 15: // numeric: DOUBLE
-#line 140 "parser.y"
+#line 139 "parser.y"
                  { yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > (), OperatorType::DOUBLE); }
-#line 774 "parser.cpp"
+#line 773 "parser.cpp"
     break;
 
   case 16: // numeric: PI
-#line 141 "parser.y"
+#line 140 "parser.y"
              { yylhs.value.as < TNode* > () = new TNode("3.141592653589793", "3.141592653589793", OperatorType::DOUBLE); }
-#line 780 "parser.cpp"
+#line 779 "parser.cpp"
     break;
 
   case 17: // unary_expr: NOT expr
-#line 144 "parser.y"
+#line 143 "parser.y"
                       { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Not", OperatorType::FUNDAMENTAL, yystack_[0].value.as < TNode* > ()); }
-#line 786 "parser.cpp"
+#line 785 "parser.cpp"
     break;
 
   case 18: // unary_expr: identifier PLUS1
-#line 145 "parser.y"
+#line 144 "parser.y"
                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[1].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 792 "parser.cpp"
+#line 791 "parser.cpp"
     break;
 
   case 19: // unary_expr: identifier MINUS1
-#line 146 "parser.y"
+#line 145 "parser.y"
                                { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Subtract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[1].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 798 "parser.cpp"
+#line 797 "parser.cpp"
     break;
 
   case 20: // unary_expr: PLUS1 identifier
-#line 147 "parser.y"
+#line 146 "parser.y"
                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[0].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 804 "parser.cpp"
+#line 803 "parser.cpp"
     break;
 
   case 21: // unary_expr: MINUS1 identifier
-#line 148 "parser.y"
+#line 147 "parser.y"
                                { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Subtract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[0].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 810 "parser.cpp"
+#line 809 "parser.cpp"
     break;
 
   case 22: // binary_expr: expr CEQ expr
-#line 151 "parser.y"
+#line 150 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Equal", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 816 "parser.cpp"
+#line 815 "parser.cpp"
     break;
 
   case 23: // binary_expr: expr CNE expr
-#line 152 "parser.y"
+#line 151 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "NotEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 822 "parser.cpp"
+#line 821 "parser.cpp"
     break;
 
   case 24: // binary_expr: expr CLT expr
-#line 153 "parser.y"
+#line 152 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Less", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 828 "parser.cpp"
+#line 827 "parser.cpp"
     break;
 
   case 25: // binary_expr: expr CLE expr
-#line 154 "parser.y"
+#line 153 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "LessOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 834 "parser.cpp"
+#line 833 "parser.cpp"
     break;
 
   case 26: // binary_expr: expr CGT expr
-#line 155 "parser.y"
+#line 154 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Greater", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 840 "parser.cpp"
+#line 839 "parser.cpp"
     break;
 
   case 27: // binary_expr: expr CGE expr
-#line 156 "parser.y"
+#line 155 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "GreaterOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 846 "parser.cpp"
+#line 845 "parser.cpp"
     break;
 
   case 28: // binary_expr: expr PLUS expr
-#line 157 "parser.y"
+#line 156 "parser.y"
                              { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 852 "parser.cpp"
+#line 851 "parser.cpp"
     break;
 
   case 29: // binary_expr: expr MINUS expr
-#line 158 "parser.y"
+#line 157 "parser.y"
                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Substract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 858 "parser.cpp"
+#line 857 "parser.cpp"
     break;
 
   case 30: // binary_expr: expr MUL expr
-#line 159 "parser.y"
+#line 158 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Multiply", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 864 "parser.cpp"
+#line 863 "parser.cpp"
     break;
 
   case 31: // binary_expr: expr DIV expr
-#line 160 "parser.y"
+#line 159 "parser.y"
                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Divide", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 870 "parser.cpp"
+#line 869 "parser.cpp"
     break;
 
   case 32: // binary_expr: expr MATMUL expr
-#line 161 "parser.y"
+#line 160 "parser.y"
                                { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "MatMul", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 876 "parser.cpp"
+#line 875 "parser.cpp"
     break;
 
   case 33: // binary_expr: expr POWER expr
-#line 162 "parser.y"
+#line 161 "parser.y"
                              { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Power", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 882 "parser.cpp"
+#line 881 "parser.cpp"
     break;
 
   case 34: // call_expr: identifier LPAREN call_args RPAREN
-#line 165 "parser.y"
+#line 164 "parser.y"
                                                {
   yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), yystack_[3].value.as < TNode* > ()->operator_str_, driver.GetOpFuncType(yystack_[3].value.as < TNode* > ()->operator_str_), *yystack_[1].value.as < std::vector<TNode*>* > ());
   delete yystack_[3].value.as < TNode* > ();
   delete yystack_[1].value.as < std::vector<TNode*>* > ();
 }
-#line 892 "parser.cpp"
+#line 891 "parser.cpp"
     break;
 
   case 35: // if_expr: IF LPAREN call_args RPAREN
-#line 172 "parser.y"
+#line 171 "parser.y"
                                      { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "if", OperatorType::IF, *yystack_[1].value.as < std::vector<TNode*>* > ()); delete yystack_[1].value.as < std::vector<TNode*>* > (); }
-#line 898 "parser.cpp"
+#line 897 "parser.cpp"
     break;
 
   case 36: // call_args: expr
-#line 175 "parser.y"
+#line 174 "parser.y"
                  { yylhs.value.as < std::vector<TNode*>* > () = new std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
-#line 904 "parser.cpp"
+#line 903 "parser.cpp"
     break;
 
   case 37: // call_args: call_args COMMA expr
-#line 176 "parser.y"
+#line 175 "parser.y"
                                  { yystack_[2].value.as < std::vector<TNode*>* > ()->emplace_back(yystack_[0].value.as < TNode* > ()); yylhs.value.as < std::vector<TNode*>* > () = yystack_[2].value.as < std::vector<TNode*>* > (); }
-#line 910 "parser.cpp"
+#line 909 "parser.cpp"
     break;
 
   case 38: // identifier: IDENTIFIER
-#line 179 "parser.y"
+#line 178 "parser.y"
                         {
   // if this is a call_expr identifier, the operator_type_ will be reset to correct value in call_expr pattern.
   if (driver.IsInput(yystack_[0].value.as < std::string > ())) {
@@ -921,11 +920,11 @@ namespace tensorglue { namespace parser {
     yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > ());
   }
 }
-#line 925 "parser.cpp"
+#line 924 "parser.cpp"
     break;
 
 
-#line 929 "parser.cpp"
+#line 928 "parser.cpp"
 
             default:
               break;
@@ -1398,10 +1397,10 @@ namespace tensorglue { namespace parser {
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,    99,    99,   113,   114,   117,   120,   127,   135,   135,
-     135,   135,   135,   136,   139,   140,   141,   144,   145,   146,
-     147,   148,   151,   152,   153,   154,   155,   156,   157,   158,
-     159,   160,   161,   162,   165,   172,   175,   176,   179
+       0,    99,    99,   112,   113,   116,   119,   126,   134,   134,
+     134,   134,   134,   135,   138,   139,   140,   143,   144,   145,
+     146,   147,   150,   151,   152,   153,   154,   155,   156,   157,
+     158,   159,   160,   161,   164,   171,   174,   175,   178
   };
 
   void
@@ -1434,9 +1433,9 @@ namespace tensorglue { namespace parser {
 
 #line 20 "parser.y"
 } } // tensorglue::parser
-#line 1438 "parser.cpp"
+#line 1437 "parser.cpp"
 
-#line 191 "parser.y"
+#line 190 "parser.y"
 
 
 void tensorglue::parser::Parser::error(const tensorglue::parser::location& location, const std::string& message) {
