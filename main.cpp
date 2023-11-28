@@ -152,7 +152,7 @@ int main(int argc, char** argv) {
       // YY_BUFFER_STATE buffer = yy_scan_string(expr_str.c_str());
       // InitParser(compound_operands, compound_outputs, fundamental_funcs, compound_funcs, helper_funcs);
       tensorglue::parser::Driver driver(compound_operands, compound_outputs, fundamental_funcs, compound_funcs, helper_funcs);
-      std::stringstream ss("c = a + b;");
+      std::stringstream ss(expr_str);
       driver.parse(ss);
       driver.CheckTree(driver.GetRoot());
       driver.PrintTree(driver.GetRoot(), 0, false);

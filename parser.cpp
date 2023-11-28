@@ -37,7 +37,7 @@
 
 
 // First part of user prologue.
-#line 31 "parser.y"
+#line 46 "parser.y"
 
   #include "scanner.h"
   #include "driver.h"
@@ -148,7 +148,7 @@
 #define YYERROR         goto yyerrorlab
 #define YYRECOVERING()  (!!yyerrstatus_)
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 namespace tensorglue { namespace parser {
 #line 154 "parser.cpp"
 
@@ -236,27 +236,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.YY_MOVE_OR_COPY< std::string > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.YY_MOVE_OR_COPY< std::vector<TNode*> > (YY_MOVE (that.value));
+        value.YY_MOVE_OR_COPY< std::vector<TNode*>* > (YY_MOVE (that.value));
         break;
 
       default:
@@ -291,27 +276,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.move< std::string > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.move< std::vector<TNode*> > (YY_MOVE (that.value));
+        value.move< std::vector<TNode*>* > (YY_MOVE (that.value));
         break;
 
       default:
@@ -346,27 +316,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.copy< std::string > (that.value);
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.copy< std::vector<TNode*> > (that.value);
+        value.copy< std::vector<TNode*>* > (that.value);
         break;
 
       default:
@@ -400,27 +355,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.move< std::string > (that.value);
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.move< std::vector<TNode*> > (that.value);
+        value.move< std::vector<TNode*>* > (that.value);
         break;
 
       default:
@@ -699,27 +639,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         yylhs.value.emplace< std::string > ();
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        yylhs.value.emplace< std::vector<TNode*> > ();
+        yylhs.value.emplace< std::vector<TNode*>* > ();
         break;
 
       default:
@@ -743,50 +668,52 @@ namespace tensorglue { namespace parser {
           switch (yyn)
             {
   case 2: // program: stmts
-#line 87 "parser.y"
+#line 99 "parser.y"
                 {
   TNode* node = new TNode("tgb##output", "CompoundOutputs", OperatorType::COMPOUNDOUTPUTS);
   driver.SetRoot(node);
-  for (auto &item : yystack_[0].value.as < std::vector<TNode*> > ()) {
+  for (auto &item : *yystack_[0].value.as < std::vector<TNode*>* > ()) {
+    std::cout << item->node_label_ << std::endl;
     if (std::regex_match(item->node_label_, output_regex)) {
       driver.AddSubTree(driver.GetRoot(), item);
     }
   }
+  delete yystack_[0].value.as < std::vector<TNode*>* > ();
   driver.ReleaseTempMapNodes();
 }
-#line 758 "parser.cpp"
+#line 685 "parser.cpp"
     break;
 
   case 3: // stmts: stmt
-#line 99 "parser.y"
-             { yylhs.value.as < std::vector<TNode*> > () = std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
-#line 764 "parser.cpp"
+#line 113 "parser.y"
+             { yylhs.value.as < std::vector<TNode*>* > () = new std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
+#line 691 "parser.cpp"
     break;
 
   case 4: // stmts: stmts stmt
-#line 100 "parser.y"
-                   { yylhs.value.as < std::vector<TNode*> > ().emplace_back(yystack_[0].value.as < TNode* > ()); }
-#line 770 "parser.cpp"
+#line 114 "parser.y"
+                   { yystack_[1].value.as < std::vector<TNode*>* > ()->emplace_back(yystack_[0].value.as < TNode* > ()); yylhs.value.as < std::vector<TNode*>* > () = yystack_[1].value.as < std::vector<TNode*>* > (); }
+#line 697 "parser.cpp"
     break;
 
   case 5: // stmt: assign SEP
-#line 103 "parser.y"
+#line 117 "parser.y"
                   { yylhs.value.as < TNode* > () = yystack_[1].value.as < TNode* > (); driver.StoreMap(yystack_[1].value.as < TNode* > ()); }
-#line 776 "parser.cpp"
+#line 703 "parser.cpp"
     break;
 
   case 6: // assign: identifier EQUAL expr
-#line 106 "parser.y"
+#line 120 "parser.y"
                                {
   yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > ();
   yylhs.value.as < TNode* > ()->node_label_ = yystack_[2].value.as < TNode* > ()->node_label_;
   delete yystack_[2].value.as < TNode* > ();
 }
-#line 786 "parser.cpp"
+#line 713 "parser.cpp"
     break;
 
   case 7: // expr: identifier
-#line 113 "parser.y"
+#line 127 "parser.y"
                   {
   if (driver.IsStoredValue(yystack_[0].value.as < TNode* > ()->node_label_)) {
     yylhs.value.as < TNode* > () = driver.CloneTree(driver.GetStoredValue(yystack_[0].value.as < TNode* > ()->node_label_));
@@ -795,284 +722,195 @@ namespace tensorglue { namespace parser {
     yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > ();
   }
 }
-#line 799 "parser.cpp"
+#line 726 "parser.cpp"
     break;
 
   case 8: // expr: numeric
-#line 121 "parser.y"
+#line 135 "parser.y"
        { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 805 "parser.cpp"
+#line 732 "parser.cpp"
     break;
 
   case 9: // expr: unary_expr
-#line 121 "parser.y"
+#line 135 "parser.y"
                  { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 811 "parser.cpp"
+#line 738 "parser.cpp"
     break;
 
   case 10: // expr: binary_expr
-#line 121 "parser.y"
+#line 135 "parser.y"
                               { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 817 "parser.cpp"
+#line 744 "parser.cpp"
     break;
 
   case 11: // expr: call_expr
-#line 121 "parser.y"
+#line 135 "parser.y"
                                             { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 823 "parser.cpp"
+#line 750 "parser.cpp"
     break;
 
   case 12: // expr: if_expr
-#line 121 "parser.y"
+#line 135 "parser.y"
                                                                 { yylhs.value.as < TNode* > () = yystack_[0].value.as < TNode* > (); }
-#line 829 "parser.cpp"
+#line 756 "parser.cpp"
     break;
 
   case 13: // expr: LPAREN expr RPAREN
-#line 122 "parser.y"
+#line 136 "parser.y"
                           { yylhs.value.as < TNode* > () = yystack_[1].value.as < TNode* > (); }
-#line 835 "parser.cpp"
+#line 762 "parser.cpp"
     break;
 
   case 14: // numeric: INTEGER
-#line 125 "parser.y"
+#line 139 "parser.y"
                   { yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > (), OperatorType::INT); }
-#line 841 "parser.cpp"
+#line 768 "parser.cpp"
     break;
 
   case 15: // numeric: DOUBLE
-#line 126 "parser.y"
+#line 140 "parser.y"
                  { yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > (), OperatorType::DOUBLE); }
-#line 847 "parser.cpp"
+#line 774 "parser.cpp"
     break;
 
   case 16: // numeric: PI
-#line 127 "parser.y"
+#line 141 "parser.y"
              { yylhs.value.as < TNode* > () = new TNode("3.141592653589793", "3.141592653589793", OperatorType::DOUBLE); }
-#line 853 "parser.cpp"
+#line 780 "parser.cpp"
     break;
 
   case 17: // unary_expr: NOT expr
-#line 130 "parser.y"
+#line 144 "parser.y"
                       { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Not", OperatorType::FUNDAMENTAL, yystack_[0].value.as < TNode* > ()); }
-#line 859 "parser.cpp"
+#line 786 "parser.cpp"
     break;
 
   case 18: // unary_expr: identifier PLUS1
-#line 131 "parser.y"
+#line 145 "parser.y"
                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[1].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 865 "parser.cpp"
+#line 792 "parser.cpp"
     break;
 
   case 19: // unary_expr: identifier MINUS1
-#line 132 "parser.y"
+#line 146 "parser.y"
                                { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Subtract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[1].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 871 "parser.cpp"
+#line 798 "parser.cpp"
     break;
 
   case 20: // unary_expr: PLUS1 identifier
-#line 133 "parser.y"
+#line 147 "parser.y"
                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[0].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 877 "parser.cpp"
+#line 804 "parser.cpp"
     break;
 
   case 21: // unary_expr: MINUS1 identifier
-#line 134 "parser.y"
+#line 148 "parser.y"
                                { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Subtract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[0].value.as < TNode* > (), new TNode("1", "1", OperatorType::INT)}); }
-#line 883 "parser.cpp"
+#line 810 "parser.cpp"
     break;
 
-  case 22: // binary_expr: expr binary_op expr
-#line 137 "parser.y"
-                                  { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), yystack_[1].value.as < std::string > (), OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
-#line 889 "parser.cpp"
+  case 22: // binary_expr: expr CEQ expr
+#line 151 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Equal", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 816 "parser.cpp"
     break;
 
-  case 23: // binary_op: compare_op
-#line 140 "parser.y"
-            { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 895 "parser.cpp"
-    break;
-
-  case 24: // binary_op: math_op
-#line 140 "parser.y"
-                                 { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); std::cout << yystack_[0].value.as < std::string > () << std::endl; }
-#line 901 "parser.cpp"
-    break;
-
-  case 25: // compare_op: ceq
-#line 143 "parser.y"
-             { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 907 "parser.cpp"
-    break;
-
-  case 26: // compare_op: cne
-#line 143 "parser.y"
-                   { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 913 "parser.cpp"
-    break;
-
-  case 27: // compare_op: clt
-#line 143 "parser.y"
-                         { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 919 "parser.cpp"
-    break;
-
-  case 28: // compare_op: cle
-#line 143 "parser.y"
-                               { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 925 "parser.cpp"
-    break;
-
-  case 29: // compare_op: cgt
-#line 143 "parser.y"
-                                     { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 931 "parser.cpp"
-    break;
-
-  case 30: // compare_op: cge
-#line 143 "parser.y"
-                                               { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 937 "parser.cpp"
-    break;
-
-  case 31: // ceq: CEQ
-#line 146 "parser.y"
-          { yylhs.value.as < std::string > () = "Equal"; }
-#line 943 "parser.cpp"
-    break;
-
-  case 32: // cne: CNE
-#line 149 "parser.y"
-          { yylhs.value.as < std::string > () = "NotEqual"; }
-#line 949 "parser.cpp"
-    break;
-
-  case 33: // clt: CLT
+  case 23: // binary_expr: expr CNE expr
 #line 152 "parser.y"
-          { yylhs.value.as < std::string > () = "Less"; }
-#line 955 "parser.cpp"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "NotEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 822 "parser.cpp"
     break;
 
-  case 34: // cle: CLE
+  case 24: // binary_expr: expr CLT expr
+#line 153 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Less", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 828 "parser.cpp"
+    break;
+
+  case 25: // binary_expr: expr CLE expr
+#line 154 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "LessOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 834 "parser.cpp"
+    break;
+
+  case 26: // binary_expr: expr CGT expr
 #line 155 "parser.y"
-          { yylhs.value.as < std::string > () = "LessOrEqual"; }
-#line 961 "parser.cpp"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Greater", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 840 "parser.cpp"
     break;
 
-  case 35: // cgt: CGT
+  case 27: // binary_expr: expr CGE expr
+#line 156 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "GreaterOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 846 "parser.cpp"
+    break;
+
+  case 28: // binary_expr: expr PLUS expr
+#line 157 "parser.y"
+                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 852 "parser.cpp"
+    break;
+
+  case 29: // binary_expr: expr MINUS expr
 #line 158 "parser.y"
-          { yylhs.value.as < std::string > () = "Greater"; }
-#line 967 "parser.cpp"
+                              { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Substract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 858 "parser.cpp"
     break;
 
-  case 36: // cge: CGE
+  case 30: // binary_expr: expr MUL expr
+#line 159 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Multiply", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 864 "parser.cpp"
+    break;
+
+  case 31: // binary_expr: expr DIV expr
+#line 160 "parser.y"
+                            { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Divide", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 870 "parser.cpp"
+    break;
+
+  case 32: // binary_expr: expr MATMUL expr
 #line 161 "parser.y"
-          { yylhs.value.as < std::string > () = "GreaterOrEqual"; }
-#line 973 "parser.cpp"
+                               { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "MatMul", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 876 "parser.cpp"
     break;
 
-  case 37: // math_op: plus
-#line 164 "parser.y"
-          { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 979 "parser.cpp"
+  case 33: // binary_expr: expr POWER expr
+#line 162 "parser.y"
+                             { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "Power", OperatorType::FUNDAMENTAL, std::vector<TNode*>{yystack_[2].value.as < TNode* > (), yystack_[0].value.as < TNode* > ()}); }
+#line 882 "parser.cpp"
     break;
 
-  case 38: // math_op: minus
-#line 164 "parser.y"
-                 { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 985 "parser.cpp"
-    break;
-
-  case 39: // math_op: mul
-#line 164 "parser.y"
-                         { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 991 "parser.cpp"
-    break;
-
-  case 40: // math_op: div
-#line 164 "parser.y"
-                               { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 997 "parser.cpp"
-    break;
-
-  case 41: // math_op: matmul
-#line 164 "parser.y"
-                                     { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 1003 "parser.cpp"
-    break;
-
-  case 42: // math_op: power
-#line 164 "parser.y"
-                                                    { yylhs.value.as < std::string > () = yystack_[0].value.as < std::string > (); }
-#line 1009 "parser.cpp"
-    break;
-
-  case 43: // plus: PLUS
-#line 167 "parser.y"
-            { yylhs.value.as < std::string > () = "Add"; }
-#line 1015 "parser.cpp"
-    break;
-
-  case 44: // minus: MINUS
-#line 170 "parser.y"
-              { yylhs.value.as < std::string > () = "Subtract"; }
-#line 1021 "parser.cpp"
-    break;
-
-  case 45: // mul: MUL
-#line 173 "parser.y"
-          { yylhs.value.as < std::string > () = "Multiply"; }
-#line 1027 "parser.cpp"
-    break;
-
-  case 46: // div: DIV
-#line 176 "parser.y"
-          { yylhs.value.as < std::string > () = "Divide"; }
-#line 1033 "parser.cpp"
-    break;
-
-  case 47: // matmul: MATMUL
-#line 179 "parser.y"
-                { yylhs.value.as < std::string > () = "MatMul"; }
-#line 1039 "parser.cpp"
-    break;
-
-  case 48: // power: POWER
-#line 182 "parser.y"
-              { yylhs.value.as < std::string > () = "Power"; }
-#line 1045 "parser.cpp"
-    break;
-
-  case 49: // call_expr: identifier LPAREN call_args RPAREN
-#line 185 "parser.y"
+  case 34: // call_expr: identifier LPAREN call_args RPAREN
+#line 165 "parser.y"
                                                {
-  yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), yystack_[3].value.as < TNode* > ()->operator_str_, driver.GetOpFuncType(yystack_[3].value.as < TNode* > ()->operator_str_), yystack_[1].value.as < std::vector<TNode*> > ());
+  yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), yystack_[3].value.as < TNode* > ()->operator_str_, driver.GetOpFuncType(yystack_[3].value.as < TNode* > ()->operator_str_), *yystack_[1].value.as < std::vector<TNode*>* > ());
   delete yystack_[3].value.as < TNode* > ();
+  delete yystack_[1].value.as < std::vector<TNode*>* > ();
 }
-#line 1054 "parser.cpp"
+#line 892 "parser.cpp"
     break;
 
-  case 50: // if_expr: IF LPAREN call_args RPAREN
-#line 191 "parser.y"
-                                     { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "if", OperatorType::IF, yystack_[1].value.as < std::vector<TNode*> > ()); }
-#line 1060 "parser.cpp"
+  case 35: // if_expr: IF LPAREN call_args RPAREN
+#line 172 "parser.y"
+                                     { yylhs.value.as < TNode* > () = new TNode(driver.GetNodeTempName(), "if", OperatorType::IF, *yystack_[1].value.as < std::vector<TNode*>* > ()); delete yystack_[1].value.as < std::vector<TNode*>* > (); }
+#line 898 "parser.cpp"
     break;
 
-  case 51: // call_args: expr
-#line 194 "parser.y"
-                 { yylhs.value.as < std::vector<TNode*> > () = std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
-#line 1066 "parser.cpp"
+  case 36: // call_args: expr
+#line 175 "parser.y"
+                 { yylhs.value.as < std::vector<TNode*>* > () = new std::vector<TNode*>{yystack_[0].value.as < TNode* > ()}; }
+#line 904 "parser.cpp"
     break;
 
-  case 52: // call_args: call_args COMMA expr
-#line 195 "parser.y"
-                                 { yylhs.value.as < std::vector<TNode*> > ().emplace_back(yystack_[0].value.as < TNode* > ()); }
-#line 1072 "parser.cpp"
+  case 37: // call_args: call_args COMMA expr
+#line 176 "parser.y"
+                                 { yystack_[2].value.as < std::vector<TNode*>* > ()->emplace_back(yystack_[0].value.as < TNode* > ()); yylhs.value.as < std::vector<TNode*>* > () = yystack_[2].value.as < std::vector<TNode*>* > (); }
+#line 910 "parser.cpp"
     break;
 
-  case 53: // identifier: IDENTIFIER
-#line 198 "parser.y"
+  case 38: // identifier: IDENTIFIER
+#line 179 "parser.y"
                         {
   // if this is a call_expr identifier, the operator_type_ will be reset to correct value in call_expr pattern.
   if (driver.IsInput(yystack_[0].value.as < std::string > ())) {
@@ -1083,11 +921,11 @@ namespace tensorglue { namespace parser {
     yylhs.value.as < TNode* > () = new TNode(yystack_[0].value.as < std::string > (), yystack_[0].value.as < std::string > ());
   }
 }
-#line 1087 "parser.cpp"
+#line 925 "parser.cpp"
     break;
 
 
-#line 1091 "parser.cpp"
+#line 929 "parser.cpp"
 
             default:
               break;
@@ -1439,86 +1277,86 @@ namespace tensorglue { namespace parser {
   }
 
 
-  const signed char Parser::yypact_ninf_ = -34;
+  const signed char Parser::yypact_ninf_ = -14;
 
   const signed char Parser::yytable_ninf_ = -1;
 
   const signed char
   Parser::yypact_[] =
   {
-       9,   -34,     2,     9,   -34,     3,     7,   -34,   -34,   -34,
-       4,   -34,   -34,   -34,     8,     4,     4,     9,     9,    50,
-     -34,   -34,   -34,   -34,   -34,   -14,     4,    28,    -7,   -34,
-     -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,
-     -34,   -34,   -34,     4,   -34,   -34,   -34,   -34,   -34,   -34,
-     -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,     4,   -34,
-     -34,    50,   -13,   -34,    50,    -1,   -34,     4,   -34,    50
+      25,   -14,    20,    25,   -14,    61,    65,   -14,   -14,   -14,
+      47,    25,    25,    47,    47,   -14,   -14,   -14,    29,    46,
+     -14,   -14,   -14,   -14,   -14,   -13,   -14,   -14,   -14,    26,
+      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
+      47,    47,    47,   -14,   -14,    47,   -14,    46,    -5,    68,
+      68,    -3,    -3,    -3,    -3,    30,    30,   -14,   -14,   -14,
+     -14,    -4,    47,   -14,   -14,    46
   };
 
   const signed char
   Parser::yydefact_[] =
   {
-       0,    53,     0,     2,     3,     0,     0,     1,     4,     5,
-       0,    14,    15,    16,     0,     0,     0,     0,     0,     6,
-       8,     9,    10,    11,    12,     7,     0,     0,    17,    20,
-      21,    31,    32,    33,    34,    35,    36,    43,    44,    45,
-      46,    47,    48,     0,    23,    25,    26,    27,    28,    29,
-      30,    24,    37,    38,    39,    40,    41,    42,     0,    18,
-      19,    51,     0,    13,    22,     0,    50,     0,    49,    52
+       0,    38,     0,     2,     3,     0,     0,     1,     4,     5,
+       0,     0,     0,     0,     0,    14,    15,    16,     0,     6,
+       8,     9,    10,    11,    12,     7,    20,    21,    17,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    18,    19,     0,    13,    36,     0,    22,
+      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      33,     0,     0,    35,    34,    37
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -34,   -34,   -34,    21,   -34,   -10,   -34,   -34,   -34,   -34,
-     -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,   -34,
-     -34,   -34,   -34,   -34,   -34,   -34,   -33,    17
+     -14,   -14,   -14,    84,   -14,   -10,   -14,   -14,   -14,   -14,
+     -14,    43,     5
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-       0,     2,     3,     4,     5,    61,    20,    21,    22,    43,
-      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
-      54,    55,    56,    57,    23,    24,    62,    25
+       0,     2,     3,     4,     5,    47,    20,    21,    22,    23,
+      24,    48,    25
   };
 
   const signed char
   Parser::yytable_[] =
   {
-      19,    58,     7,    66,    67,    27,    28,     1,    11,    12,
-      13,    14,     1,    59,    60,    68,    67,     6,    42,    15,
-       6,    10,     9,    26,     8,    65,     0,     0,     0,     0,
-      16,    17,    18,    64,    29,    30,    31,    32,    33,    34,
-      35,    36,     0,     0,    63,     0,     0,     0,    37,    38,
-      39,    40,    41,    42,     0,     0,     0,    69,    31,    32,
-      33,    34,    35,    36,     0,     0,     0,     0,     0,     0,
-      37,    38,    39,    40,    41,    42
+      19,    62,    62,    28,    29,     6,    43,    44,     6,    45,
+      37,    38,    39,    40,    41,    42,    26,    27,    63,    64,
+       7,    49,    50,    51,    52,    53,    54,    55,    56,    57,
+      58,    59,    60,    31,    32,    33,    34,    35,    36,    37,
+      38,    39,    40,    41,    42,    39,    40,    41,    42,    46,
+       1,    30,    65,    31,    32,    33,    34,    35,    36,    37,
+      38,    39,    40,    41,    42,     9,    11,    12,    13,    14,
+      10,     0,     1,    15,    16,    17,    18,    33,    34,    35,
+      36,    37,    38,    39,    40,    41,    42,     8,    61
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-      10,    15,     0,    16,    17,    15,    16,     3,     4,     5,
-       6,     7,     3,    27,    28,    16,    17,     0,    25,    15,
-       3,    14,    19,    15,     3,    58,    -1,    -1,    -1,    -1,
-      26,    27,    28,    43,    17,    18,     8,     9,    10,    11,
-      12,    13,    -1,    -1,    16,    -1,    -1,    -1,    20,    21,
-      22,    23,    24,    25,    -1,    -1,    -1,    67,     8,     9,
-      10,    11,    12,    13,    -1,    -1,    -1,    -1,    -1,    -1,
-      20,    21,    22,    23,    24,    25
+      10,     6,     6,    13,    14,     0,    19,    20,     3,    22,
+      13,    14,    15,    16,    17,    18,    11,    12,    23,    23,
+       0,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    42,     7,     8,     9,    10,    11,    12,    13,
+      14,    15,    16,    17,    18,    15,    16,    17,    18,    23,
+      25,    22,    62,     7,     8,     9,    10,    11,    12,    13,
+      14,    15,    16,    17,    18,     4,    19,    20,    21,    22,
+       5,    -1,    25,    26,    27,    28,    29,     9,    10,    11,
+      12,    13,    14,    15,    16,    17,    18,     3,    45
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,     3,    31,    32,    33,    34,    57,     0,    33,    19,
-      14,     4,     5,     6,     7,    15,    26,    27,    28,    35,
-      36,    37,    38,    54,    55,    57,    15,    35,    35,    57,
-      57,     8,     9,    10,    11,    12,    13,    20,    21,    22,
-      23,    24,    25,    39,    40,    41,    42,    43,    44,    45,
-      46,    47,    48,    49,    50,    51,    52,    53,    15,    27,
-      28,    35,    56,    16,    35,    56,    16,    17,    16,    35
+       0,    25,    31,    32,    33,    34,    42,     0,    33,     4,
+       5,    19,    20,    21,    22,    26,    27,    28,    29,    35,
+      36,    37,    38,    39,    40,    42,    42,    42,    35,    35,
+      22,     7,     8,     9,    10,    11,    12,    13,    14,    15,
+      16,    17,    18,    19,    20,    22,    23,    35,    41,    35,
+      35,    35,    35,    35,    35,    35,    35,    35,    35,    35,
+      35,    41,     6,    23,    23,    35
   };
 
   const signed char
@@ -1526,10 +1364,8 @@ namespace tensorglue { namespace parser {
   {
        0,    30,    31,    32,    32,    33,    34,    35,    35,    35,
       35,    35,    35,    35,    36,    36,    36,    37,    37,    37,
-      37,    37,    38,    39,    39,    40,    40,    40,    40,    40,
-      40,    41,    42,    43,    44,    45,    46,    47,    47,    47,
-      47,    47,    47,    48,    49,    50,    51,    52,    53,    54,
-      55,    56,    56,    57
+      37,    37,    38,    38,    38,    38,    38,    38,    38,    38,
+      38,    38,    38,    38,    39,    40,    41,    41,    42
   };
 
   const signed char
@@ -1537,10 +1373,8 @@ namespace tensorglue { namespace parser {
   {
        0,     2,     1,     1,     2,     2,     3,     1,     1,     1,
        1,     1,     1,     3,     1,     1,     1,     2,     2,     2,
-       2,     2,     3,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     4,
-       4,     1,     3,     1
+       2,     2,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     4,     4,     1,     3,     1
   };
 
 
@@ -1550,14 +1384,12 @@ namespace tensorglue { namespace parser {
   const char*
   const Parser::yytname_[] =
   {
-  "END", "error", "\"invalid token\"", "IDENTIFIER", "INTEGER", "DOUBLE",
-  "PI", "IF", "CEQ", "CNE", "CLT", "CLE", "CGT", "CGE", "EQUAL", "LPAREN",
-  "RPAREN", "COMMA", "DOT", "SEP", "PLUS", "MINUS", "MUL", "DIV", "MATMUL",
-  "POWER", "NOT", "PLUS1", "MINUS1", "EOL", "$accept", "program", "stmts",
-  "stmt", "assign", "expr", "numeric", "unary_expr", "binary_expr",
-  "binary_op", "compare_op", "ceq", "cne", "clt", "cle", "cgt", "cge",
-  "math_op", "plus", "minus", "mul", "div", "matmul", "power", "call_expr",
-  "if_expr", "call_args", "identifier", YY_NULLPTR
+  "END", "error", "\"invalid token\"", "EOL", "SEP", "EQUAL", "COMMA",
+  "CEQ", "CNE", "CLT", "CLE", "CGT", "CGE", "PLUS", "MINUS", "MUL", "DIV",
+  "MATMUL", "POWER", "PLUS1", "MINUS1", "NOT", "LPAREN", "RPAREN", "DOT",
+  "IDENTIFIER", "INTEGER", "DOUBLE", "PI", "IF", "$accept", "program",
+  "stmts", "stmt", "assign", "expr", "numeric", "unary_expr",
+  "binary_expr", "call_expr", "if_expr", "call_args", "identifier", YY_NULLPTR
   };
 #endif
 
@@ -1566,12 +1398,10 @@ namespace tensorglue { namespace parser {
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,    87,    87,    99,   100,   103,   106,   113,   121,   121,
-     121,   121,   121,   122,   125,   126,   127,   130,   131,   132,
-     133,   134,   137,   140,   140,   143,   143,   143,   143,   143,
-     143,   146,   149,   152,   155,   158,   161,   164,   164,   164,
-     164,   164,   164,   167,   170,   173,   176,   179,   182,   185,
-     191,   194,   195,   198
+       0,    99,    99,   113,   114,   117,   120,   127,   135,   135,
+     135,   135,   135,   136,   139,   140,   141,   144,   145,   146,
+     147,   148,   151,   152,   153,   154,   155,   156,   157,   158,
+     159,   160,   161,   162,   165,   172,   175,   176,   179
   };
 
   void
@@ -1602,11 +1432,11 @@ namespace tensorglue { namespace parser {
 #endif // YYDEBUG
 
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 } } // tensorglue::parser
-#line 1608 "parser.cpp"
+#line 1438 "parser.cpp"
 
-#line 210 "parser.y"
+#line 191 "parser.y"
 
 
 void tensorglue::parser::Parser::error(const tensorglue::parser::location& location, const std::string& message) {

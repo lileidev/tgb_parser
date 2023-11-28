@@ -45,7 +45,7 @@
 #ifndef YY_YY_PARSER_H_INCLUDED
 # define YY_YY_PARSER_H_INCLUDED
 // "%code requires" blocks.
-#line 16 "parser.y"
+#line 31 "parser.y"
 
   #include <memory>
   #include <string>
@@ -199,7 +199,7 @@
 # define YYDEBUG 0
 #endif
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 namespace tensorglue { namespace parser {
 #line 205 "parser.h"
 
@@ -436,26 +436,11 @@ namespace tensorglue { namespace parser {
       // DOUBLE
       // PI
       // IF
-      // binary_op
-      // compare_op
-      // ceq
-      // cne
-      // clt
-      // cle
-      // cgt
-      // cge
-      // math_op
-      // plus
-      // minus
-      // mul
-      // div
-      // matmul
-      // power
       char dummy2[sizeof (std::string)];
 
       // stmts
       // call_args
-      char dummy3[sizeof (std::vector<TNode*>)];
+      char dummy3[sizeof (std::vector<TNode*>*)];
     };
 
     /// The size of the largest semantic type.
@@ -508,33 +493,33 @@ namespace tensorglue { namespace parser {
     TOKEN_END = 0,                 // END
     TOKEN_YYerror = 256,           // error
     TOKEN_YYUNDEF = 257,           // "invalid token"
-    TOKEN_IDENTIFIER = 258,        // IDENTIFIER
-    TOKEN_INTEGER = 259,           // INTEGER
-    TOKEN_DOUBLE = 260,            // DOUBLE
-    TOKEN_PI = 261,                // PI
-    TOKEN_IF = 262,                // IF
-    TOKEN_CEQ = 263,               // CEQ
-    TOKEN_CNE = 264,               // CNE
-    TOKEN_CLT = 265,               // CLT
-    TOKEN_CLE = 266,               // CLE
-    TOKEN_CGT = 267,               // CGT
-    TOKEN_CGE = 268,               // CGE
-    TOKEN_EQUAL = 269,             // EQUAL
-    TOKEN_LPAREN = 270,            // LPAREN
-    TOKEN_RPAREN = 271,            // RPAREN
-    TOKEN_COMMA = 272,             // COMMA
-    TOKEN_DOT = 273,               // DOT
-    TOKEN_SEP = 274,               // SEP
-    TOKEN_PLUS = 275,              // PLUS
-    TOKEN_MINUS = 276,             // MINUS
-    TOKEN_MUL = 277,               // MUL
-    TOKEN_DIV = 278,               // DIV
-    TOKEN_MATMUL = 279,            // MATMUL
-    TOKEN_POWER = 280,             // POWER
-    TOKEN_NOT = 281,               // NOT
-    TOKEN_PLUS1 = 282,             // PLUS1
-    TOKEN_MINUS1 = 283,            // MINUS1
-    TOKEN_EOL = 284                // EOL
+    TOKEN_EOL = 258,               // EOL
+    TOKEN_SEP = 259,               // SEP
+    TOKEN_EQUAL = 260,             // EQUAL
+    TOKEN_COMMA = 261,             // COMMA
+    TOKEN_CEQ = 262,               // CEQ
+    TOKEN_CNE = 263,               // CNE
+    TOKEN_CLT = 264,               // CLT
+    TOKEN_CLE = 265,               // CLE
+    TOKEN_CGT = 266,               // CGT
+    TOKEN_CGE = 267,               // CGE
+    TOKEN_PLUS = 268,              // PLUS
+    TOKEN_MINUS = 269,             // MINUS
+    TOKEN_MUL = 270,               // MUL
+    TOKEN_DIV = 271,               // DIV
+    TOKEN_MATMUL = 272,            // MATMUL
+    TOKEN_POWER = 273,             // POWER
+    TOKEN_PLUS1 = 274,             // PLUS1
+    TOKEN_MINUS1 = 275,            // MINUS1
+    TOKEN_NOT = 276,               // NOT
+    TOKEN_LPAREN = 277,            // LPAREN
+    TOKEN_RPAREN = 278,            // RPAREN
+    TOKEN_DOT = 279,               // DOT
+    TOKEN_IDENTIFIER = 280,        // IDENTIFIER
+    TOKEN_INTEGER = 281,           // INTEGER
+    TOKEN_DOUBLE = 282,            // DOUBLE
+    TOKEN_PI = 283,                // PI
+    TOKEN_IF = 284                 // IF
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -556,33 +541,33 @@ namespace tensorglue { namespace parser {
         S_YYEOF = 0,                             // END
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
-        S_IDENTIFIER = 3,                        // IDENTIFIER
-        S_INTEGER = 4,                           // INTEGER
-        S_DOUBLE = 5,                            // DOUBLE
-        S_PI = 6,                                // PI
-        S_IF = 7,                                // IF
-        S_CEQ = 8,                               // CEQ
-        S_CNE = 9,                               // CNE
-        S_CLT = 10,                              // CLT
-        S_CLE = 11,                              // CLE
-        S_CGT = 12,                              // CGT
-        S_CGE = 13,                              // CGE
-        S_EQUAL = 14,                            // EQUAL
-        S_LPAREN = 15,                           // LPAREN
-        S_RPAREN = 16,                           // RPAREN
-        S_COMMA = 17,                            // COMMA
-        S_DOT = 18,                              // DOT
-        S_SEP = 19,                              // SEP
-        S_PLUS = 20,                             // PLUS
-        S_MINUS = 21,                            // MINUS
-        S_MUL = 22,                              // MUL
-        S_DIV = 23,                              // DIV
-        S_MATMUL = 24,                           // MATMUL
-        S_POWER = 25,                            // POWER
-        S_NOT = 26,                              // NOT
-        S_PLUS1 = 27,                            // PLUS1
-        S_MINUS1 = 28,                           // MINUS1
-        S_EOL = 29,                              // EOL
+        S_EOL = 3,                               // EOL
+        S_SEP = 4,                               // SEP
+        S_EQUAL = 5,                             // EQUAL
+        S_COMMA = 6,                             // COMMA
+        S_CEQ = 7,                               // CEQ
+        S_CNE = 8,                               // CNE
+        S_CLT = 9,                               // CLT
+        S_CLE = 10,                              // CLE
+        S_CGT = 11,                              // CGT
+        S_CGE = 12,                              // CGE
+        S_PLUS = 13,                             // PLUS
+        S_MINUS = 14,                            // MINUS
+        S_MUL = 15,                              // MUL
+        S_DIV = 16,                              // DIV
+        S_MATMUL = 17,                           // MATMUL
+        S_POWER = 18,                            // POWER
+        S_PLUS1 = 19,                            // PLUS1
+        S_MINUS1 = 20,                           // MINUS1
+        S_NOT = 21,                              // NOT
+        S_LPAREN = 22,                           // LPAREN
+        S_RPAREN = 23,                           // RPAREN
+        S_DOT = 24,                              // DOT
+        S_IDENTIFIER = 25,                       // IDENTIFIER
+        S_INTEGER = 26,                          // INTEGER
+        S_DOUBLE = 27,                           // DOUBLE
+        S_PI = 28,                               // PI
+        S_IF = 29,                               // IF
         S_YYACCEPT = 30,                         // $accept
         S_program = 31,                          // program
         S_stmts = 32,                            // stmts
@@ -592,25 +577,10 @@ namespace tensorglue { namespace parser {
         S_numeric = 36,                          // numeric
         S_unary_expr = 37,                       // unary_expr
         S_binary_expr = 38,                      // binary_expr
-        S_binary_op = 39,                        // binary_op
-        S_compare_op = 40,                       // compare_op
-        S_ceq = 41,                              // ceq
-        S_cne = 42,                              // cne
-        S_clt = 43,                              // clt
-        S_cle = 44,                              // cle
-        S_cgt = 45,                              // cgt
-        S_cge = 46,                              // cge
-        S_math_op = 47,                          // math_op
-        S_plus = 48,                             // plus
-        S_minus = 49,                            // minus
-        S_mul = 50,                              // mul
-        S_div = 51,                              // div
-        S_matmul = 52,                           // matmul
-        S_power = 53,                            // power
-        S_call_expr = 54,                        // call_expr
-        S_if_expr = 55,                          // if_expr
-        S_call_args = 56,                        // call_args
-        S_identifier = 57                        // identifier
+        S_call_expr = 39,                        // call_expr
+        S_if_expr = 40,                          // if_expr
+        S_call_args = 41,                        // call_args
+        S_identifier = 42                        // identifier
       };
     };
 
@@ -664,27 +634,12 @@ namespace tensorglue { namespace parser {
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.move< std::string > (std::move (that.value));
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.move< std::vector<TNode*> > (std::move (that.value));
+        value.move< std::vector<TNode*>* > (std::move (that.value));
         break;
 
       default:
@@ -739,13 +694,13 @@ namespace tensorglue { namespace parser {
 #endif
 
 #if 201103L <= YY_CPLUSPLUS
-      basic_symbol (typename Base::kind_type t, std::vector<TNode*>&& v, location_type&& l)
+      basic_symbol (typename Base::kind_type t, std::vector<TNode*>*&& v, location_type&& l)
         : Base (t)
         , value (std::move (v))
         , location (std::move (l))
       {}
 #else
-      basic_symbol (typename Base::kind_type t, const std::vector<TNode*>& v, const location_type& l)
+      basic_symbol (typename Base::kind_type t, const std::vector<TNode*>*& v, const location_type& l)
         : Base (t)
         , value (v)
         , location (l)
@@ -793,27 +748,12 @@ switch (yykind)
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.template destroy< std::string > ();
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.template destroy< std::vector<TNode*> > ();
+        value.template destroy< std::vector<TNode*>* > ();
         break;
 
       default:
@@ -914,8 +854,7 @@ switch (yykind)
       {
 #if !defined _MSC_VER || defined __clang__
         YY_ASSERT (tok == token::TOKEN_END
-                   || (token::TOKEN_YYerror <= tok && tok <= token::TOKEN_YYUNDEF)
-                   || (token::TOKEN_CEQ <= tok && tok <= token::TOKEN_EOL));
+                   || (token::TOKEN_YYerror <= tok && tok <= token::TOKEN_DOT));
 #endif
       }
 #if 201103L <= YY_CPLUSPLUS
@@ -1026,76 +965,61 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_IDENTIFIER (std::string v, location_type l)
+      make_EOL (location_type l)
       {
-        return symbol_type (token::TOKEN_IDENTIFIER, std::move (v), std::move (l));
+        return symbol_type (token::TOKEN_EOL, std::move (l));
       }
 #else
       static
       symbol_type
-      make_IDENTIFIER (const std::string& v, const location_type& l)
+      make_EOL (const location_type& l)
       {
-        return symbol_type (token::TOKEN_IDENTIFIER, v, l);
+        return symbol_type (token::TOKEN_EOL, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_INTEGER (std::string v, location_type l)
+      make_SEP (location_type l)
       {
-        return symbol_type (token::TOKEN_INTEGER, std::move (v), std::move (l));
+        return symbol_type (token::TOKEN_SEP, std::move (l));
       }
 #else
       static
       symbol_type
-      make_INTEGER (const std::string& v, const location_type& l)
+      make_SEP (const location_type& l)
       {
-        return symbol_type (token::TOKEN_INTEGER, v, l);
+        return symbol_type (token::TOKEN_SEP, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_DOUBLE (std::string v, location_type l)
+      make_EQUAL (location_type l)
       {
-        return symbol_type (token::TOKEN_DOUBLE, std::move (v), std::move (l));
+        return symbol_type (token::TOKEN_EQUAL, std::move (l));
       }
 #else
       static
       symbol_type
-      make_DOUBLE (const std::string& v, const location_type& l)
+      make_EQUAL (const location_type& l)
       {
-        return symbol_type (token::TOKEN_DOUBLE, v, l);
+        return symbol_type (token::TOKEN_EQUAL, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_PI (std::string v, location_type l)
+      make_COMMA (location_type l)
       {
-        return symbol_type (token::TOKEN_PI, std::move (v), std::move (l));
+        return symbol_type (token::TOKEN_COMMA, std::move (l));
       }
 #else
       static
       symbol_type
-      make_PI (const std::string& v, const location_type& l)
+      make_COMMA (const location_type& l)
       {
-        return symbol_type (token::TOKEN_PI, v, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_IF (std::string v, location_type l)
-      {
-        return symbol_type (token::TOKEN_IF, std::move (v), std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_IF (const std::string& v, const location_type& l)
-      {
-        return symbol_type (token::TOKEN_IF, v, l);
+        return symbol_type (token::TOKEN_COMMA, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1191,96 +1115,6 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_EQUAL (location_type l)
-      {
-        return symbol_type (token::TOKEN_EQUAL, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_EQUAL (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_EQUAL, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_LPAREN (location_type l)
-      {
-        return symbol_type (token::TOKEN_LPAREN, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_LPAREN (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_LPAREN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_RPAREN (location_type l)
-      {
-        return symbol_type (token::TOKEN_RPAREN, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_RPAREN (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_RPAREN, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_COMMA (location_type l)
-      {
-        return symbol_type (token::TOKEN_COMMA, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_COMMA (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_COMMA, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_DOT (location_type l)
-      {
-        return symbol_type (token::TOKEN_DOT, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_DOT (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_DOT, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
-      make_SEP (location_type l)
-      {
-        return symbol_type (token::TOKEN_SEP, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_SEP (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_SEP, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_PLUS (location_type l)
       {
         return symbol_type (token::TOKEN_PLUS, std::move (l));
@@ -1371,21 +1205,6 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_NOT (location_type l)
-      {
-        return symbol_type (token::TOKEN_NOT, std::move (l));
-      }
-#else
-      static
-      symbol_type
-      make_NOT (const location_type& l)
-      {
-        return symbol_type (token::TOKEN_NOT, l);
-      }
-#endif
-#if 201103L <= YY_CPLUSPLUS
-      static
-      symbol_type
       make_PLUS1 (location_type l)
       {
         return symbol_type (token::TOKEN_PLUS1, std::move (l));
@@ -1416,16 +1235,136 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
-      make_EOL (location_type l)
+      make_NOT (location_type l)
       {
-        return symbol_type (token::TOKEN_EOL, std::move (l));
+        return symbol_type (token::TOKEN_NOT, std::move (l));
       }
 #else
       static
       symbol_type
-      make_EOL (const location_type& l)
+      make_NOT (const location_type& l)
       {
-        return symbol_type (token::TOKEN_EOL, l);
+        return symbol_type (token::TOKEN_NOT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_LPAREN (location_type l)
+      {
+        return symbol_type (token::TOKEN_LPAREN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_LPAREN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_LPAREN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RPAREN (location_type l)
+      {
+        return symbol_type (token::TOKEN_RPAREN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RPAREN (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_RPAREN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOT (location_type l)
+      {
+        return symbol_type (token::TOKEN_DOT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DOT (const location_type& l)
+      {
+        return symbol_type (token::TOKEN_DOT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_IDENTIFIER (std::string v, location_type l)
+      {
+        return symbol_type (token::TOKEN_IDENTIFIER, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_IDENTIFIER (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_IDENTIFIER, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_INTEGER (std::string v, location_type l)
+      {
+        return symbol_type (token::TOKEN_INTEGER, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_INTEGER (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_INTEGER, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOUBLE (std::string v, location_type l)
+      {
+        return symbol_type (token::TOKEN_DOUBLE, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DOUBLE (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_DOUBLE, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_PI (std::string v, location_type l)
+      {
+        return symbol_type (token::TOKEN_PI, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PI (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_PI, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_IF (std::string v, location_type l)
+      {
+        return symbol_type (token::TOKEN_IF, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_IF (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::TOKEN_IF, v, l);
       }
 #endif
 
@@ -1758,8 +1697,8 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 75,     ///< Last index in yytable_.
-      yynnts_ = 28,  ///< Number of nonterminal symbols.
+      yylast_ = 88,     ///< Last index in yytable_.
+      yynnts_ = 13,  ///< Number of nonterminal symbols.
       yyfinal_ = 7 ///< Termination state number.
     };
 
@@ -1847,27 +1786,12 @@ switch (yykind)
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.copy< std::string > (YY_MOVE (that.value));
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.copy< std::vector<TNode*> > (YY_MOVE (that.value));
+        value.copy< std::vector<TNode*>* > (YY_MOVE (that.value));
         break;
 
       default:
@@ -1918,27 +1842,12 @@ switch (yykind)
       case symbol_kind::S_DOUBLE: // DOUBLE
       case symbol_kind::S_PI: // PI
       case symbol_kind::S_IF: // IF
-      case symbol_kind::S_binary_op: // binary_op
-      case symbol_kind::S_compare_op: // compare_op
-      case symbol_kind::S_ceq: // ceq
-      case symbol_kind::S_cne: // cne
-      case symbol_kind::S_clt: // clt
-      case symbol_kind::S_cle: // cle
-      case symbol_kind::S_cgt: // cgt
-      case symbol_kind::S_cge: // cge
-      case symbol_kind::S_math_op: // math_op
-      case symbol_kind::S_plus: // plus
-      case symbol_kind::S_minus: // minus
-      case symbol_kind::S_mul: // mul
-      case symbol_kind::S_div: // div
-      case symbol_kind::S_matmul: // matmul
-      case symbol_kind::S_power: // power
         value.move< std::string > (YY_MOVE (s.value));
         break;
 
       case symbol_kind::S_stmts: // stmts
       case symbol_kind::S_call_args: // call_args
-        value.move< std::vector<TNode*> > (YY_MOVE (s.value));
+        value.move< std::vector<TNode*>* > (YY_MOVE (s.value));
         break;
 
       default:
@@ -2006,9 +1915,9 @@ switch (yykind)
   }
 
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 } } // tensorglue::parser
-#line 2012 "parser.h"
+#line 1921 "parser.h"
 
 
 

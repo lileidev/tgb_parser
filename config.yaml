@@ -81,57 +81,58 @@ HelperFuncs:
   - func: Long
   - func: RetrievingValueByIndex
   - func: ScalarToTensor
+  - func: Vector
 
 CompoundFuncs:
 #   - func: res = Test(a, b)
 #     expressions: >-
 #       res = Float(Int(a) == Int(b));
 
-  - func: accuracy, correct, total = Accuracy(out, indices, label)
-    expressions: >-
-      equal_fp32 = Float(Int(indices) == Int(label));
-      correct_sum = ReduceSum(ReduceMax(equal_fp32, Vector(1)), Vector(0));
-      correct = Int(correct_sum);
-      t0 = GetNumel(indices);
-      total = Fill(total, t0);
-      t1 = Fill(total, Float(t0));
-      accuracy = Divide(correct_sum, t1);
+  # - func: accuracy, correct, total = Accuracy(out, indices, label)
+  #   expressions: >-
+  #     equal_fp32 = Float(Int(indices) == Int(label));
+  #     correct_sum = ReduceSum(ReduceMax(equal_fp32, Vector(1)), Vector(0));
+  #     correct = Int(correct_sum);
+  #     t0 = GetNumel(indices);
+  #     total = Fill(total, t0);
+  #     t1 = Fill(total, Float(t0));
+  #     accuracy = Divide(correct_sum, t1);
 
-  - func: dx, dy = Multiply_Grad(x, y, dout, axis)
-    expressions: >-
-      t0 = dout * y;
-      reduce_axes1 = GetReduceAxes(axis, t0, dx, x, y);
-      reduce_add1 = ReduceAdd(t0, reduce_axes1);
-      t1 = dout * x;
-      reduce_axes2 = GetReduceAxes(axis, t1, dy, x, y);
-      reduce_add2 = ReduceAdd(t1, reduce_axes2);
-      t2 = IsShapeEqual(dx, dout);
-      dx = if(t2, t0, reduce_add1);
-      t3 = IsShapeEqual(dy, dout);
-      dy = if(t3, t1, reduce_add2);
+  # - func: dx, dy = Multiply_Grad(x, y, dout, axis)
+  #   expressions: >-
+  #     t0 = dout * y;
+  #     reduce_axes1 = GetReduceAxes(axis, t0, dx, x, y);
+  #     reduce_add1 = ReduceAdd(t0, reduce_axes1);
+  #     t1 = dout * x;
+  #     reduce_axes2 = GetReduceAxes(axis, t1, dy, x, y);
+  #     reduce_add2 = ReduceAdd(t1, reduce_axes2);
+  #     t2 = IsShapeEqual(dx, dout);
+  #     dx = if(t2, t0, reduce_add1);
+  #     t3 = IsShapeEqual(dy, dout);
+  #     dy = if(t3, t1, reduce_add2);
 
-  # addmm: out=βinput+α(mat1@mat2)
-  - func: out = Addmm(input, mat1, mat2, beta, alpha)
-    expressions: >-
-      out = beta * input + alpha * (mat1 @ mat2);
+  # # addmm: out=βinput+α(mat1@mat2)
+  # - func: out = Addmm(input, mat1, mat2, beta, alpha)
+  #   expressions: >-
+  #     out = beta * input + alpha * (mat1 @ mat2);
 
-  - func: out = Acosh(x)
-    expressions: >-
-      out = Log(x + Sqrt(x ** ScalarToTensor(2) - 1));
+  # - func: out = Acosh(x)
+  #   expressions: >-
+  #     out = Log(x + Sqrt(x ** ScalarToTensor(2) - 1));
 
-  - func: out = Asinh(x)
-    expressions: >-
-      out = Log(x + Sqrt(x ** ScalarToTensor(2) + 1));
+  # - func: out = Asinh(x)
+  #   expressions: >-
+  #     out = Log(x + Sqrt(x ** ScalarToTensor(2) + 1));
 
-  - func: out = Atanh(x)
-    expressions: >-
-      out = Log((1+x)/(1-x))/2;
+  # - func: out = Atanh(x)
+  #   expressions: >-
+  #     out = Log((1+x)/(1-x))/2;
 
-  # out = (x - input_mean) / sqrt(input_var + epsilon) * scale + bias
-  - func: out = BatchNorm_Eval(x, scale, bias, input_mean, input_var, epsilon)
-    expressions: >-
-      t0 = GetMemChannelLastCopy(x);
-      out = (t0 - input_mean) / Sqrt(input_var + epsilon) * scale + bias;
+  # # out = (x - input_mean) / sqrt(input_var + epsilon) * scale + bias
+  # - func: out = BatchNorm_Eval(x, scale, bias, input_mean, input_var, epsilon)
+  #   expressions: >-
+  #     t0 = GetMemChannelLastCopy(x);
+  #     out = (t0 - input_mean) / Sqrt(input_var + epsilon) * scale + bias;
 
   # running_mean = input_mean * momentum + current_mean * (1 - momentum)
   # running_var = input_var * momentum + current_var * (1 - momentum)
@@ -146,7 +147,6 @@ CompoundFuncs:
       running_mean = input_mean * momentum + current_mean * (1 - momentum);
       running_var = input_var * momentum + current_var * (1 - momentum);
       out = (t0 - current_mean) / Sqrt(current_var + epsilon) * scale + bias;
-
 
 # # Compound operators that can be split into fundamental operators
 # CompoundFuncs:

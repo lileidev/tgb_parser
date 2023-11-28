@@ -466,7 +466,21 @@ static const flex_int32_t yy_rule_can_match_eol[30] =
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 #line 1 "lexer.l"
-#line 2 "lexer.l"
+/* Copyright 2023 The TensorGlue Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================*/
+#line 17 "lexer.l"
   #include "parser.h"
   #include "scanner.h"
   #include "location.hh"
@@ -479,8 +493,8 @@ static const flex_int32_t yy_rule_can_match_eol[30] =
 
   using namespace tensorglue::parser;
   #define yyterminate() Parser::make_END(loc);
-#line 483 "lexer.cpp"
-#line 484 "lexer.cpp"
+#line 497 "lexer.cpp"
+#line 498 "lexer.cpp"
 
 #define INITIAL 0
 
@@ -612,15 +626,15 @@ YY_DECL
 		}
 
 	{
-#line 22 "lexer.l"
+#line 37 "lexer.l"
 
 
 
-#line 26 "lexer.l"
+#line 41 "lexer.l"
   loc.step();  
 
 
-#line 624 "lexer.cpp"
+#line 638 "lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -690,154 +704,154 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 29 "lexer.l"
+#line 44 "lexer.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "lexer.l"
+#line 45 "lexer.l"
 { return Parser::make_PI(yytext, loc); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 31 "lexer.l"
+#line 46 "lexer.l"
 { return Parser::make_IF(yytext, loc); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 32 "lexer.l"
+#line 47 "lexer.l"
 { return Parser::make_IDENTIFIER(yytext, loc); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 33 "lexer.l"
+#line 48 "lexer.l"
 { return Parser::make_DOUBLE(yytext, loc); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 34 "lexer.l"
+#line 49 "lexer.l"
 { return Parser::make_INTEGER(yytext, loc); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 50 "lexer.l"
 { return Parser::make_EQUAL(loc); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 36 "lexer.l"
+#line 51 "lexer.l"
 { return Parser::make_CEQ(loc); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 37 "lexer.l"
+#line 52 "lexer.l"
 { return Parser::make_CNE(loc); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 38 "lexer.l"
+#line 53 "lexer.l"
 { return Parser::make_CLT(loc); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 39 "lexer.l"
+#line 54 "lexer.l"
 { return Parser::make_CLE(loc); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 40 "lexer.l"
+#line 55 "lexer.l"
 { return Parser::make_CGT(loc); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 41 "lexer.l"
+#line 56 "lexer.l"
 { return Parser::make_CGE(loc); }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 42 "lexer.l"
+#line 57 "lexer.l"
 { return Parser::make_LPAREN(loc); }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 43 "lexer.l"
+#line 58 "lexer.l"
 { return Parser::make_RPAREN(loc); }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 44 "lexer.l"
+#line 59 "lexer.l"
 { return Parser::make_DOT(loc); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 45 "lexer.l"
+#line 60 "lexer.l"
 { return Parser::make_COMMA(loc); }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 46 "lexer.l"
+#line 61 "lexer.l"
 { return Parser::make_SEP(loc); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 47 "lexer.l"
+#line 62 "lexer.l"
 { return Parser::make_PLUS(loc); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 48 "lexer.l"
+#line 63 "lexer.l"
 { return Parser::make_MINUS(loc); }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 49 "lexer.l"
+#line 64 "lexer.l"
 { return Parser::make_MUL(loc); }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 50 "lexer.l"
+#line 65 "lexer.l"
 { return Parser::make_DIV(loc); }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 51 "lexer.l"
+#line 66 "lexer.l"
 { return Parser::make_MATMUL(loc); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 52 "lexer.l"
+#line 67 "lexer.l"
 { return Parser::make_POWER(loc); }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 53 "lexer.l"
+#line 68 "lexer.l"
 { return Parser::make_NOT(loc); }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 54 "lexer.l"
+#line 69 "lexer.l"
 { return Parser::make_PLUS1(loc); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 55 "lexer.l"
+#line 70 "lexer.l"
 { return Parser::make_MINUS1(loc); }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 56 "lexer.l"
+#line 71 "lexer.l"
 return yyterminate();
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 57 "lexer.l"
+#line 72 "lexer.l"
 { printf("Unkown token %s!", yytext); loc.step(); }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 59 "lexer.l"
+#line 74 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 841 "lexer.cpp"
+#line 855 "lexer.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1807,6 +1821,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 59 "lexer.l"
+#line 74 "lexer.l"
 
 

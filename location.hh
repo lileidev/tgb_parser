@@ -53,7 +53,7 @@
 #  endif
 # endif
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 namespace tensorglue { namespace parser {
 #line 59 "location.hh"
 
@@ -299,7 +299,7 @@ namespace tensorglue { namespace parser {
     return ostr;
   }
 
-#line 5 "parser.y"
+#line 20 "parser.y"
 } } // tensorglue::parser
 #line 305 "location.hh"
 

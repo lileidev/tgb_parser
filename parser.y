@@ -1,3 +1,18 @@
+/* Copyright 2023 The TensorGlue Authors. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+==============================================================================*/
+
 %skeleton "lalr1.cc" // -*- C++ -*-
 %require  "3.8.2"
 %language "c++"
@@ -56,29 +71,26 @@
 %define parse.error verbose
 %define api.token.prefix {TOKEN_}
 
-%token <std::string> IDENTIFIER INTEGER DOUBLE PI IF
-
-%token CEQ CNE CLT CLE CGT CGE EQUAL
-%token LPAREN RPAREN COMMA DOT SEP
-%token PLUS MINUS MUL DIV MATMUL POWER
-%token NOT PLUS1 MINUS1
-
 %token EOL
 %token END 0
 
-%type <std::vector<TNode*>> stmts call_args
+%type <std::vector<TNode*>*> stmts call_args
 %type <TNode*> stmt assign expr numeric identifier unary_expr binary_expr call_expr if_expr
-%type <std::string> compare_op math_op binary_op ceq cne clt cle cgt cge plus minus mul div matmul power
 
 /* operator precedence for methematical operations */
-%nonassoc SEP
-%right EQUAL
+%left SEP
+%nonassoc EQUAL
+%left COMMA
 %left CEQ CNE
 %left CLT CLE CGT CGE
 %left PLUS MINUS
-%left MUL DIV MATMUL
-%right PLUS1 MINUS1 
-%right NOT
+%left MUL DIV MATMUL POWER
+%right PLUS1 MINUS1
+%nonassoc NOT
+%left LPAREN RPAREN
+%left DOT
+
+%token <std::string> IDENTIFIER INTEGER DOUBLE PI IF
 
 %start program
 
@@ -87,17 +99,18 @@
 program : stmts {
   TNode* node = new TNode("tgb##output", "CompoundOutputs", OperatorType::COMPOUNDOUTPUTS);
   driver.SetRoot(node);
-  for (auto &item : $1) {
+  for (auto &item : *$1) {
     if (std::regex_match(item->node_label_, output_regex)) {
       driver.AddSubTree(driver.GetRoot(), item);
     }
   }
+  delete $1;
   driver.ReleaseTempMapNodes();
 }
         ;
       
-stmts : stmt { $$ = std::vector<TNode*>{$1}; }
-      | stmts stmt { $$.emplace_back($2); }
+stmts : stmt { $$ = new std::vector<TNode*>{$1}; }
+      | stmts stmt { $1->emplace_back($2); $$ = $1; }
       ;
 
 stmt : assign SEP { $$ = $1; driver.StoreMap($1); }
@@ -134,65 +147,32 @@ unary_expr : NOT expr { $$ = new TNode(driver.GetNodeTempName(), "Not", Operator
            | MINUS1 identifier { $$ = new TNode(driver.GetNodeTempName(), "Subtract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$2, new TNode("1", "1", OperatorType::INT)}); }
            ;
 
-binary_expr : expr binary_op expr { $$ = new TNode(driver.GetNodeTempName(), $2, OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+binary_expr : expr CEQ expr { $$ = new TNode(driver.GetNodeTempName(), "Equal", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr CNE expr { $$ = new TNode(driver.GetNodeTempName(), "NotEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr CLT expr { $$ = new TNode(driver.GetNodeTempName(), "Less", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr CLE expr { $$ = new TNode(driver.GetNodeTempName(), "LessOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr CGT expr { $$ = new TNode(driver.GetNodeTempName(), "Greater", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr CGE expr { $$ = new TNode(driver.GetNodeTempName(), "GreaterOrEqual", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr PLUS expr { $$ = new TNode(driver.GetNodeTempName(), "Add", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr MINUS expr { $$ = new TNode(driver.GetNodeTempName(), "Substract", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr MUL expr { $$ = new TNode(driver.GetNodeTempName(), "Multiply", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr DIV expr { $$ = new TNode(driver.GetNodeTempName(), "Divide", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr MATMUL expr { $$ = new TNode(driver.GetNodeTempName(), "MatMul", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
+            | expr POWER expr{ $$ = new TNode(driver.GetNodeTempName(), "Power", OperatorType::FUNDAMENTAL, std::vector<TNode*>{$1, $3}); }
             ;
 
-binary_op : compare_op | math_op { $$ = $1; }
-          ;
-
-compare_op : ceq | cne | clt | cle | cgt | cge { $$ = $1; }
-           ;
-
-ceq : CEQ { $$ = "Equal"; }
-    ;
-  
-cne : CNE { $$ = "NotEqual"; }
-    ;
-
-clt : CLT { $$ = "Less"; }
-    ;
-
-cle : CLE { $$ = "LessOrEqual"; }
-    ;
-
-cgt : CGT { $$ = "Greater"; }
-    ;
-
-cge : CGE { $$ = "GreaterOrEqual"; }
-    ;
-
-math_op : plus | minus | mul | div | matmul | power { $$ = $1; }
-        ;
-
-plus : PLUS { $$ = "Add"; }
-     ;
-
-minus : MINUS { $$ = "Subtract"; }
-      ;
-
-mul : MUL { $$ = "Multiply"; }
-    ;
-
-div : DIV { $$ = "Divide"; }
-    ;
-
-matmul : MATMUL { $$ = "MatMul"; }
-       ;
-
-power : POWER { $$ = "Power"; }
-      ;
-
 call_expr : identifier LPAREN call_args RPAREN {
-  $$ = new TNode(driver.GetNodeTempName(), $1->operator_str_, driver.GetOpFuncType($1->operator_str_), $3);
+  $$ = new TNode(driver.GetNodeTempName(), $1->operator_str_, driver.GetOpFuncType($1->operator_str_), *$3);
   delete $1;
+  delete $3;
 }
           ;
 
-if_expr : IF LPAREN call_args RPAREN { $$ = new TNode(driver.GetNodeTempName(), "if", OperatorType::IF, $3); }
+if_expr : IF LPAREN call_args RPAREN { $$ = new TNode(driver.GetNodeTempName(), "if", OperatorType::IF, *$3); delete $3; }
         ;
 
-call_args : expr { $$ = std::vector<TNode*>{$1}; }
-          | call_args COMMA expr { $$.emplace_back($3); }
+call_args : expr { $$ = new std::vector<TNode*>{$1}; }
+          | call_args COMMA expr { $1->emplace_back($3); $$ = $1; }
           ;
 
 identifier : IDENTIFIER {
