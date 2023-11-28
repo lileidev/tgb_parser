@@ -20,10 +20,15 @@ limitations under the License.
 %define api.namespace {tensorglue::parser}
 %define api.parser.class {Parser}
 
+%define parse.error verbose
+%define api.token.prefix {TOKEN_}
+
 %define api.token.constructor
 %define api.value.type variant
 %define parse.assert
 %defines
+
+%locations
 
 %header "parser.h"
 %output "parser.cpp"
@@ -35,6 +40,7 @@ limitations under the License.
   #include <unordered_map>
 
   #include "tnode.h"
+
   using namespace tensorglue::top;
 
   namespace tensorglue::parser {
@@ -46,7 +52,6 @@ limitations under the License.
 %{
   #include "scanner.h"
   #include "driver.h"
-
   #include "tnode.h"
 
   using namespace tensorglue::top;
@@ -65,11 +70,6 @@ limitations under the License.
 // define parameters driver pass to parser
 %parse-param { tensorglue::parser::Scanner& scanner }
 %parse-param { tensorglue::parser::Driver& driver }
-
-%locations
-
-%define parse.error verbose
-%define api.token.prefix {TOKEN_}
 
 %token EOL
 %token END 0
